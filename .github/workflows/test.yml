@@ -1,10 +1,30 @@
+name: Deploy
+
 on:
   workflow_dispatch:
     inputs:
-      environment:
-        description: Select environment
-        type: choice
-        options:
-          - dev
-          - qa
-          - prod
+      deploy_dev:
+        description: "Deploy to Dev"
+        type: boolean
+        default: false
+
+      deploy_qa:
+        description: "Deploy to QA"
+        type: boolean
+        default: false
+
+      deploy_prod:
+        description: "Deploy to Prod"
+        type: boolean
+        default: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Show selected environments
+        run: |
+          echo "Dev: ${{ inputs.deploy_dev }}"
+          echo "QA: ${{ inputs.deploy_qa }}"
+          echo "Prod: ${{ inputs.deploy_prod }}"
