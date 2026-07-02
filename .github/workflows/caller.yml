@@ -1,0 +1,22 @@
+name: Call Reusable Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  call-workflow:
+    uses: ./.github/workflows/reusable.yml
+    with:
+      config: |
+        {
+          "environment": "production",
+          "region": "us-east-1",
+          "application": {
+            "name": "shopping-api",
+            "version": "1.2.3"
+          },
+          "database": {
+            "host": "db.company.com",
+            "port": 5432
+          }
+        }
