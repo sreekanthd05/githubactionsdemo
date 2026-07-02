@@ -1,0 +1,27 @@
+name: Reusable Workflow
+
+on:
+  workflow_call:
+    inputs:
+      config:
+        description: "Configuration as JSON"
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print full config
+        run: |
+          echo '${{ inputs.config }}'
+
+      - name: Access nested values
+        run: |
+          echo "Environment: ${{ fromJSON(inputs.config).environment }}"
+          echo "Region: ${{ fromJSON(inputs.config).region }}"
+          echo "App Name: ${{ fromJSON(inputs.config).application.name }}"
+          echo "App Version: ${{ fromJSON(inputs.config).application.version }}"
+          echo "Database Host: ${{ fromJSON(inputs.config).database.host }}"
+          echo "Database Port: ${{ fromJSON(inputs.config).database.port }}"
